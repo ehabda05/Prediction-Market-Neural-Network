@@ -4,24 +4,34 @@
 #include <vector>
 #include <cmath>
 #include <stdexcept>
+#include <random>
 
 class NeuralNetwork {
-  public:
+public:
     NeuralNetwork(const std::vector<int>& layerSizes);
+
     std::vector<double> feedforward(const std::vector<double>& input);
+
     void train(const std::vector<std::vector<double>>& trainingData,
                const std::vector<std::vector<double>>& trainingLabels,
-               int epochs, double learningRate);
+               int epochs,
+               double learningRate);
 
-  private:
-    std::vector<std::vector<double>> weights;
+private:
+    std::vector<int> layerSizes;
+
+    // weights[layer][neuron][previousNeuron]
+    std::vector<std::vector<std::vector<double>>> weights;
+
+    // biases[layer][neuron]
     std::vector<std::vector<double>> biases;
 
-    std::vector<double> sigmoid(const std::vector<double>& z);
-    std::vector<double> sigmoidDerivative(const std::vector<double>& z);
+    double sigmoid(double x);
+    double sigmoidDerivative(double x);
+
     void backpropagate(const std::vector<double>& input,
                        const std::vector<double>& expectedOutput,
                        double learningRate);
-    };
+};
 
-#endif // NEURALNETWORK_HPP
+#endif
