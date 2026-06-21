@@ -34,4 +34,4 @@ private:
                        double learningRate);
 };
 
-#endif
+#endif  // NEURALNETWORK_HPP
